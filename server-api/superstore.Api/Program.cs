@@ -14,16 +14,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // ─── SERVICES CONFIGURATION ─────────────────────────────────────────────
 
-// Configured for local development + all Vercel preview/production deployments
+// Configured for local development + all Vercel deployments
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy => policy
         .SetIsOriginAllowed(origin =>
         {
             if (string.IsNullOrEmpty(origin)) return false;
-            var uri = new Uri(origin);
-            return uri.Host == "localhost" 
-                || uri.Host.EndsWith("https://super-store-o54f.vercel.app", StringComparison.OrdinalIgnoreCase);
+
+            if (Uri.TryCreate(origin, UriKind.Absolute, out var uri))
+            {
+                return uri.Host == "localhost"
+                    || uri.Host.EndsWith("vercel.app", StringComparison.OrdinalIgnoreCase);
+            }
+
+            return false;
         })
         .AllowAnyMethod()
         .AllowAnyHeader()
