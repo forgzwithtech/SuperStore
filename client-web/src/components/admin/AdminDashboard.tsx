@@ -55,7 +55,7 @@ export const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
   const [brands, setBrands] = useState<any[]>([]);
   const [personnel, setPersonnel] = useState<any[]>([]); 
   
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const [inventorySearch, setInventorySearch] = useState("");
