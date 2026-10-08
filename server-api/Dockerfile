@@ -13,13 +13,13 @@ RUN for dir in superstore.*; do \
       fi; \
     done && \
     for proj in Superstore.*/*.csproj; do \
-      dir=$(dirname "$proj"); \
-      base=$(basename "$proj"); \
-      target="$dir/Superstore.${base#superstore.}"; \
-      if [ -f "$proj" ] && [ "$proj" != "$target" ]; then \
-        cp "$proj" "$target"; \
-      fi; \
-    done
+  dir=$(dirname "$proj"); \
+  base=$(basename "$proj"); \
+  target="$dir/Superstore.${base#superstore.}"; \
+  if [ -f "$proj" ] && [ "$proj" != "$target" ]; then \
+    cp "$proj" "$target"; \
+  fi; \
+done
 
 # Restore dependencies
 RUN dotnet restore "superstore.sln"
@@ -37,4 +37,4 @@ ENV ASPNETCORE_ENVIRONMENT=Production
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "superstore.Api.dll"]
+ENTRYPOINT ["dotnet", "Superstore.Api.dll"]
