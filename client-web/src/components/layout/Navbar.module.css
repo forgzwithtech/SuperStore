@@ -1,0 +1,266 @@
+/* Navbar.module.css */
+.navWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.navbar {
+  pointer-events: auto;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: visible;
+  width: min(96%, 1040px);
+  top: 20px;
+  border-radius: 6px;
+  background: #fbf6ea;
+  border: 2px solid #211c15;
+  box-shadow: 4px 4px 0 rgba(33, 28, 21, 0.16);
+  transition:
+    width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    top 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease;
+}
+
+.navbar.scrolled {
+  width: min(88%, 760px);
+  top: 14px;
+}
+
+/* perforated tear-strip under the bar — signature detail, echoes a receipt edge */
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -5px;
+  height: 4px;
+  background-image: radial-gradient(circle, #211c15 1.4px, transparent 1.6px);
+  background-size: 9px 4px;
+  background-repeat: repeat-x;
+  opacity: 0.5;
+}
+
+.navbar.menuOpen {
+  border-radius: 6px;
+}
+
+.glassRefraction { display: none; }
+.glassHighlight { display: none; }
+
+.scrollTrack {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: left center;
+  background: #c63c24;
+  z-index: 3;
+}
+
+.navContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.65rem 1.1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.brandMark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: #2e6b48;
+  color: #fbf6ea;
+  font-family: "Anton", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  border: 1.5px solid #211c15;
+}
+
+.brandWord {
+  font-family: "Anton", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #211c15;
+  white-space: nowrap;
+}
+
+.desktopLinks {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.linkWrapper {
+  position: relative;
+  cursor: pointer;
+  padding: 0.55rem 0.95rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.activePill {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: #efb92e;
+  border: 1.5px solid #211c15;
+  z-index: -1;
+}
+
+.iconContainer {
+  display: flex;
+  color: rgba(33, 28, 21, 0.45);
+  transition: color 0.25s ease;
+}
+
+.linkWrapper:hover .iconContainer { color: rgba(33, 28, 21, 0.85); }
+.activeIcon { color: #211c15; }
+
+.linkLabel {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: rgba(33, 28, 21, 0.5);
+  transition: color 0.25s ease;
+}
+
+.linkWrapper:hover .linkLabel { color: rgba(33, 28, 21, 0.85); }
+.activeLabel { color: #211c15; font-weight: 700; }
+
+.navbar.scrolled .linkLabel { display: none; }
+.navbar.scrolled .linkWrapper { padding: 0.6rem 0.75rem; }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.cartBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #211c15;
+  border: 1.5px solid #211c15;
+  color: #fbf6ea;
+  height: 38px;
+  padding: 0 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cartBtn:hover { background: #2e6b48; border-color: #2e6b48; }
+
+.cartText {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cartBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: #c63c24;
+  color: #fff;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #efb92e;
+  border: 1.5px solid #211c15;
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+}
+
+.bar, .barOpen1, .barOpen2, .barOpen3 {
+  display: block; width: 16px; height: 2px;
+  background: #211c15; border-radius: 1px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.barOpen1 { transform: translateY(6.5px) rotate(45deg); }
+.barOpen2 { opacity: 0; transform: scaleX(0); }
+.barOpen3 { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobileMenu {
+  overflow: hidden;
+  border-top: 2px dashed rgba(33,28,21,0.2);
+  padding: 0 1.5rem;
+}
+
+.mobileLink {
+  padding: 1.1rem 0;
+  font-family: "IBM Plex Mono", monospace;
+  color: rgba(33,28,21,0.6);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(33,28,21,0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.mobileLinkIcon { display: flex; opacity: 0.6; }
+.mobileLink:last-child { border-bottom: none; }
+.mobileLinkActive { color: #211c15; font-weight: 700; }
+.mobileLinkActive .mobileLinkIcon { opacity: 1; }
+
+@media (max-width: 768px) {
+  .desktopLinks { display: none; }
+  .hamburger { display: flex; }
+  .cartText { display: none; }
+  .cartBtn { padding: 0 0.6rem; width: auto; height: 38px; border-radius: 4px; }
+  .navbar, .navbar.scrolled { width: min(94%, 600px); }
+}

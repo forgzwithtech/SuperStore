@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\user222\\OneDrive\\Desktop\\SuperStore\\server-api\\superstore.api\\wwwroot\\uploads\\devices\\1f46d2b4-03d1-40f1-862e-d9c56e9a96f8_images (8).jpg",
+      "PackagePath": "staticwebassets\\uploads\\devices\\1f46d2b4-03d1-40f1-862e-d9c56e9a96f8_images (8).jpg"
+    },
+    {
+      "Id": "C:\\Users\\user222\\OneDrive\\Desktop\\SuperStore\\server-api\\superstore.api\\wwwroot\\uploads\\devices\\3a652f21-6aed-40a5-b959-b28e68aa0c88_images (9).jpg",
+      "PackagePath": "staticwebassets\\uploads\\devices\\3a652f21-6aed-40a5-b959-b28e68aa0c88_images (9).jpg"
+    },
+    {
+      "Id": "C:\\Users\\user222\\OneDrive\\Desktop\\SuperStore\\server-api\\superstore.api\\wwwroot\\uploads\\devices\\77ceddd4-c37c-4117-a2b3-9f91e1cecab5_images (8).jpg",
+      "PackagePath": "staticwebassets\\uploads\\devices\\77ceddd4-c37c-4117-a2b3-9f91e1cecab5_images (8).jpg"
+    },
+    {
+      "Id": "C:\\Users\\user222\\OneDrive\\Desktop\\SuperStore\\server-api\\superstore.api\\wwwroot\\uploads\\devices\\92376f43-3b83-48f9-94fa-04645bd63e88_images (10).jpg",
+      "PackagePath": "staticwebassets\\uploads\\devices\\92376f43-3b83-48f9-94fa-04645bd63e88_images (10).jpg"
+    },
+    {
+      "Id": "C:\\Users\\user222\\OneDrive\\Desktop\\SuperStore\\server-api\\superstore.api\\wwwroot\\uploads\\devices\\d7f5b3c0-7e41-4277-800b-e5ad4087999b_oppox9.jpg",
+      "PackagePath": "staticwebassets\\uploads\\devices\\d7f5b3c0-7e41-4277-800b-e5ad4087999b_oppox9.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.superstore.Api.props",
+      "PackagePath": "build\\superstore.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.superstore.Api.props",
+      "PackagePath": "buildMultiTargeting\\superstore.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.superstore.Api.props",
+      "PackagePath": "buildTransitive\\superstore.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.superstore.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
