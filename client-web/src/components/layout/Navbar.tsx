@@ -8,6 +8,7 @@ export interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onCartClick: () => void;
+  isHiddenOnMobile?: boolean;
 }
 
 const IconSupport = () => (
@@ -32,7 +33,7 @@ const navTabs = [
   { id: "about", label: "About", icon: <IconAbout /> },
 ];
 
-export const Navbar = ({ activeTab, setActiveTab, onCartClick }: NavbarProps) => {
+export const Navbar = ({ activeTab, setActiveTab, onCartClick, isHiddenOnMobile = false }: NavbarProps) => {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -53,7 +54,7 @@ export const Navbar = ({ activeTab, setActiveTab, onCartClick }: NavbarProps) =>
   };
 
   return (
-    <div className={styles.navWrapper}>
+    <div className={`${styles.navWrapper} ${isHiddenOnMobile ? styles.hideMobile : ""}`}>
       <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""} ${menuOpen ? styles.menuOpen : ""}`}>
         <div className={styles.navContainer}>
           <motion.div className={styles.brand} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.96 }} onClick={() => handleNavClick("catalog")}>

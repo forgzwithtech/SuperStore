@@ -204,7 +204,13 @@ export const HomePage = () => {
 
   return (
     <div className={styles.masterWrapper}>
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} onCartClick={() => setIsCartOpen(true)} />
+      {/* Navbar now receives isHiddenOnMobile={isSearchOpen} to completely vanish when search is active */}
+      <Navbar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        onCartClick={() => setIsCartOpen(true)} 
+        isHiddenOnMobile={isSearchOpen}
+      />
 
       <AnimatePresence mode="wait">
         {activeTab === "catalog" && (

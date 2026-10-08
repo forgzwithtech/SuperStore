@@ -32,7 +32,6 @@
   top: 12px;
 }
 
-/* Perforated receipt rip edge under navbar */
 .navbar::after {
   content: "";
   position: absolute;
@@ -62,7 +61,7 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Ensures left/right pin */
+  justify-content: space-between;
   width: 100%;
   padding: 0.65rem 1.1rem;
 }
@@ -172,7 +171,7 @@
   gap: 0.55rem;
   z-index: 10;
   flex-shrink: 0;
-  margin-left: auto; /* Absolute safety lock to stay pinned right */
+  margin-left: auto;
 }
 
 .cartBtn {
@@ -293,6 +292,11 @@
 }
 
 @media (max-width: 768px) {
+  /* Complete vanish of navbar when search modal opens on mobile */
+  .hideMobile {
+    display: none !important;
+  }
+
   .navbar,
   .navbar.scrolled {
     width: calc(100vw - 24px);
