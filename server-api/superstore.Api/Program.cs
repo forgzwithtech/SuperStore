@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
             if (string.IsNullOrEmpty(origin)) return false;
             var uri = new Uri(origin);
             return uri.Host == "localhost" 
-                || uri.Host.EndsWith(".vercel.app", StringComparison.OrdinalIgnoreCase);
+                || uri.Host.EndsWith("https://super-store-o54f.vercel.app", StringComparison.OrdinalIgnoreCase);
         })
         .AllowAnyMethod()
         .AllowAnyHeader()
