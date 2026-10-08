@@ -2,29 +2,20 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy solution file
-COPY ["superstore.sln", "./"]
+# Copy the entire server source tree
+COPY . .
 
-# Copy project files into directory casing matching superstore.sln
-COPY ["superstore.Api/superstore.Api.csproj", "Superstore.Api/"]
-COPY ["superstore.Application/superstore.Application.csproj", "Superstore.Application/"]
-COPY ["superstore.Core/superstore.Core.csproj", "Superstore.Core/"]
-COPY ["superstore.Infrastructure/superstore.Infrastructure.csproj", "Superstore.Infrastructure/"]
+# Ensure directory names match the exact PascalCase expected by superstore.sln on case-sensitive Linux
+RUN [ -d "superstore.Api" ] && cp -r superstore.Api Superstore.Api || true
+RUN [ -d "superstore.Application" ] && cp -r superstore.Application Superstore.Application || true
+RUN [ -d "superstore.Core" ] && cp -r superstore.Core Superstore.Core || true
+RUN [ -d "superstore.Infrastructure" ] && cp -r superstore.Infrastructure Superstore.Infrastructure || true
 
 # Restore dependencies
 RUN dotnet restore "superstore.sln"
 
-# Copy all remaining source files
-COPY . .
-
-# Ensure folder structure matches case expectations for the build
-RUN cp -rn superstore.Api/. Superstore.Api/ 2>/dev/null || true && \
-    cp -rn superstore.Application/. Superstore.Application/ 2>/dev/null || true && \
-    cp -rn superstore.Core/. Superstore.Core/ 2>/dev/null || true && \
-    cp -rn superstore.Infrastructure/. Superstore.Infrastructure/ 2>/dev/null || true
-
-# Build and publish release output
-RUN dotnet publish "superstore.sln" -c Release -o /app/publish /p:UseAppHost=false
+# Publish the API project to release folder
+RUN dotnet publish "Superstore.Api/superstore.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Stage 2: Runtime Image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
@@ -34,7 +25,6 @@ EXPOSE 8080
 ENV ASPNETCORE_HTTP_PORTS=8080
 ENV ASPNETCORE_ENVIRONMENT=Production
 
-# Copy built binaries from build stage
 COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "superstore.Api.dll"]
