@@ -1,4 +1,3 @@
-/* Navbar.module.css */
 .navWrapper {
   position: fixed;
   top: 0;
@@ -18,28 +17,28 @@
   overflow: visible;
   width: min(96%, 1040px);
   top: 20px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #fbf6ea;
   border: 2px solid #211c15;
   box-shadow: 4px 4px 0 rgba(33, 28, 21, 0.16);
   transition:
-    width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    top 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s ease;
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease;
 }
 
 .navbar.scrolled {
-  width: min(88%, 760px);
-  top: 14px;
+  width: min(90%, 820px);
+  top: 12px;
 }
 
-/* perforated tear-strip under the bar — signature detail, echoes a receipt edge */
+/* Perforated receipt rip edge under navbar */
 .navbar::after {
   content: "";
   position: absolute;
   left: 10px;
   right: 10px;
-  bottom: -5px;
+  bottom: -6px;
   height: 4px;
   background-image: radial-gradient(circle, #211c15 1.4px, transparent 1.6px);
   background-size: 9px 4px;
@@ -47,16 +46,10 @@
   opacity: 0.5;
 }
 
-.navbar.menuOpen {
-  border-radius: 6px;
-}
-
-.glassRefraction { display: none; }
-.glassHighlight { display: none; }
-
 .scrollTrack {
   position: absolute;
-  bottom: 0; left: 0;
+  bottom: 0;
+  left: 0;
   height: 2px;
   width: 100%;
   transform-origin: left center;
@@ -69,6 +62,7 @@
   z-index: 2;
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Ensures left/right pin */
   width: 100%;
   padding: 0.65rem 1.1rem;
 }
@@ -79,28 +73,27 @@
   gap: 0.55rem;
   cursor: pointer;
   flex-shrink: 0;
+  user-select: none;
 }
 
 .brandMark {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 4px;
   background: #2e6b48;
   color: #fbf6ea;
   font-family: "Anton", sans-serif;
-  font-size: 0.85rem;
-  font-weight: 400;
+  font-size: 0.9rem;
   border: 1.5px solid #211c15;
 }
 
 .brandWord {
   font-family: "Anton", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #211c15;
   white-space: nowrap;
@@ -108,17 +101,16 @@
 
 .desktopLinks {
   display: flex;
-  flex: 1;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  min-width: 0;
+  gap: 0.35rem;
+  flex: 1;
 }
 
 .linkWrapper {
   position: relative;
   cursor: pointer;
-  padding: 0.55rem 0.95rem;
+  padding: 0.55rem 0.9rem;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -139,11 +131,15 @@
 .iconContainer {
   display: flex;
   color: rgba(33, 28, 21, 0.45);
-  transition: color 0.25s ease;
+  transition: color 0.2s ease;
 }
 
-.linkWrapper:hover .iconContainer { color: rgba(33, 28, 21, 0.85); }
-.activeIcon { color: #211c15; }
+.linkWrapper:hover .iconContainer {
+  color: rgba(33, 28, 21, 0.85);
+}
+.activeIcon {
+  color: #211c15;
+}
 
 .linkLabel {
   font-family: "IBM Plex Mono", monospace;
@@ -151,22 +147,32 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: rgba(33, 28, 21, 0.5);
-  transition: color 0.25s ease;
+  color: rgba(33, 28, 21, 0.55);
+  transition: color 0.2s ease;
 }
 
-.linkWrapper:hover .linkLabel { color: rgba(33, 28, 21, 0.85); }
-.activeLabel { color: #211c15; font-weight: 700; }
+.linkWrapper:hover .linkLabel {
+  color: #211c15;
+}
+.activeLabel {
+  color: #211c15;
+  font-weight: 700;
+}
 
-.navbar.scrolled .linkLabel { display: none; }
-.navbar.scrolled .linkWrapper { padding: 0.6rem 0.75rem; }
+.navbar.scrolled .linkLabel {
+  display: none;
+}
+.navbar.scrolled .linkWrapper {
+  padding: 0.6rem 0.75rem;
+}
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   z-index: 10;
   flex-shrink: 0;
+  margin-left: auto; /* Absolute safety lock to stay pinned right */
 }
 
 .cartBtn {
@@ -178,20 +184,24 @@
   border: 1.5px solid #211c15;
   color: #fbf6ea;
   height: 38px;
-  padding: 0 1rem;
+  padding: 0 0.95rem;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 2px 2px 0 rgba(33, 28, 21, 0.15);
+  transition: all 0.15s ease;
 }
 
-.cartBtn:hover { background: #2e6b48; border-color: #2e6b48; }
+.cartBtn:hover {
+  background: #2e6b48;
+  border-color: #2e6b48;
+}
 
 .cartText {
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .cartBadge {
@@ -221,46 +231,107 @@
   width: 38px;
   height: 38px;
   border-radius: 4px;
+  box-shadow: 2px 2px 0 rgba(33, 28, 21, 0.15);
 }
 
-.bar, .barOpen1, .barOpen2, .barOpen3 {
-  display: block; width: 16px; height: 2px;
-  background: #211c15; border-radius: 1px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.bar,
+.barOpen1,
+.barOpen2,
+.barOpen3 {
+  display: block;
+  width: 17px;
+  height: 2px;
+  background: #211c15;
+  border-radius: 1px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.barOpen1 { transform: translateY(6.5px) rotate(45deg); }
-.barOpen2 { opacity: 0; transform: scaleX(0); }
-.barOpen3 { transform: translateY(-6.5px) rotate(-45deg); }
+.barOpen1 {
+  transform: translateY(7px) rotate(45deg);
+}
+.barOpen2 {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.barOpen3 {
+  transform: translateY(-7px) rotate(-45deg);
+}
 
 .mobileMenu {
   overflow: hidden;
-  border-top: 2px dashed rgba(33,28,21,0.2);
-  padding: 0 1.5rem;
+  border-top: 2px dashed rgba(33, 28, 21, 0.2);
+  padding: 0.5rem 1.25rem 1rem;
 }
 
 .mobileLink {
-  padding: 1.1rem 0;
+  padding: 0.95rem 0;
   font-family: "IBM Plex Mono", monospace;
-  color: rgba(33,28,21,0.6);
-  font-size: 0.92rem;
+  color: rgba(33, 28, 21, 0.7);
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
-  border-bottom: 1px solid rgba(33,28,21,0.1);
+  border-bottom: 1px solid rgba(33, 28, 21, 0.1);
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
-.mobileLinkIcon { display: flex; opacity: 0.6; }
-.mobileLink:last-child { border-bottom: none; }
-.mobileLinkActive { color: #211c15; font-weight: 700; }
-.mobileLinkActive .mobileLinkIcon { opacity: 1; }
+
+.mobileLinkIcon {
+  display: flex;
+  opacity: 0.7;
+}
+.mobileLink:last-child {
+  border-bottom: none;
+}
+.mobileLinkActive {
+  color: #211c15;
+  font-weight: 800;
+}
+.mobileLinkActive .mobileLinkIcon {
+  opacity: 1;
+}
 
 @media (max-width: 768px) {
-  .desktopLinks { display: none; }
-  .hamburger { display: flex; }
-  .cartText { display: none; }
-  .cartBtn { padding: 0 0.6rem; width: auto; height: 38px; border-radius: 4px; }
-  .navbar, .navbar.scrolled { width: min(94%, 600px); }
+  .navbar,
+  .navbar.scrolled {
+    width: calc(100vw - 24px);
+    max-width: 100%;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navContainer {
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brandWord {
+    font-size: 1.05rem;
+  }
+  .desktopLinks {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .cartText {
+    display: none;
+  }
+
+  .cartBtn {
+    padding: 0 0.6rem;
+    height: 38px;
+    gap: 0.35rem;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
 }

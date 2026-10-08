@@ -30,7 +30,7 @@ const pageSlidePhysics = {
   initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -12 },
-  transition: { duration: 0.4, ease: EASE },
+  transition: { duration: 0.35, ease: EASE },
 };
 
 const TICKER_ITEMS = [
@@ -73,10 +73,10 @@ const ProductCard = memo(({ product, onSelect, onAdd, featured }: { product: Pro
   return (
     <motion.div
       className={`${styles.productCard} ${featured ? styles.productCardFeatured : ""}`}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.5, ease: EASE }}
+      transition={{ duration: 0.45, ease: EASE }}
       onClick={() => onSelect(product)}
       style={{ opacity: isOutOfStock ? 0.6 : 1, filter: isOutOfStock ? "grayscale(100%)" : "none" }}
     >
@@ -154,7 +154,6 @@ export const HomePage = () => {
 
   const { addToCart } = useCart();
 
-  // ─── TYPESCRIPT FIX: Adapter function to match CartContext structure ───
   const handleAddToCart = (product: ProductDto, qty: number) => {
     addToCart({
       id: product.id,
@@ -167,8 +166,8 @@ export const HomePage = () => {
   };
 
   const { scrollY } = useScroll();
-  const topTextY = useTransform(scrollY, [0, 400], [0, -40]);
-  const topTextOpacity = useTransform(scrollY, [0, 250], [1, 0]);
+  const topTextY = useTransform(scrollY, [0, 400], [0, -35]);
+  const topTextOpacity = useTransform(scrollY, [0, 250], [1, 0.05]);
 
   useEffect(() => {
     api.get("/inventory")
@@ -208,8 +207,6 @@ export const HomePage = () => {
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} onCartClick={() => setIsCartOpen(true)} />
 
       <AnimatePresence mode="wait">
-        
-        {/* ─── SHOP ALL TAB ─── */}
         {activeTab === "catalog" && (
           <motion.div key="catalog" {...pageSlidePhysics} style={{ width: "100%", flex: 1, display: "flex", flexDirection: "column", zIndex: 1 }}>
             
@@ -309,10 +306,9 @@ export const HomePage = () => {
           </motion.div>
         )}
 
-        {/* ─── CATEGORIES / DEPARTMENTS TAB ─── */}
         {activeTab === "aisles" && (
           <motion.div key="aisles" {...pageSlidePhysics} style={{ width: "100%", flex: 1, display: "flex", flexDirection: "column", zIndex: 1 }}>
-            <section className={styles.productSection} style={{ minHeight: "85vh", paddingTop: "160px", paddingBottom: "100px" }}>
+            <section className={styles.productSection} style={{ minHeight: "85vh", paddingTop: "140px", paddingBottom: "100px" }}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Shop by Department</h2>
                 <p className={styles.sectionSub}>Select a department to instantly open filtered inventory.</p>
@@ -347,10 +343,9 @@ export const HomePage = () => {
           </motion.div>
         )}
 
-        {/* ─── SUPPORT TAB ─── */}
         {activeTab === "support" && (
           <motion.div key="support" {...pageSlidePhysics} style={{ width: "100%", flex: 1, display: "flex", flexDirection: "column", zIndex: 1 }}>
-            <section className={styles.productSection} style={{ minHeight: "85vh", paddingTop: "160px", paddingBottom: "100px" }}>
+            <section className={styles.productSection} style={{ minHeight: "85vh", paddingTop: "140px", paddingBottom: "100px" }}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Customer Support</h2>
                 <p className={styles.sectionSub}>Everything you need to know about shopping with us.</p>
@@ -375,10 +370,9 @@ export const HomePage = () => {
           </motion.div>
         )}
 
-        {/* ─── ABOUT TAB ─── */}
         {activeTab === "about" && (
           <motion.div key="about" {...pageSlidePhysics} style={{ width: "100%", flex: 1, display: "flex", flexDirection: "column", zIndex: 1 }}>
-            <section className={styles.productSection} style={{ minHeight: "85vh", paddingTop: "160px", paddingBottom: "100px" }}>
+            <section className={styles.productSection} style={{ minHeight: "85vh", paddingTop: "140px", paddingBottom: "100px" }}>
               <div className={styles.subpageHeader}>
                 <h2 className={styles.sectionTitle}>THE SUPERSTORE</h2>
                 <div className={`${styles.glassPanel} ${styles.panelPadLg}`}>

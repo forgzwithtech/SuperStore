@@ -15,21 +15,19 @@ interface SearchProps {
   setCategory: (category: string) => void;
 }
 
-// ─── PHYSICS CONFIG ───
 const SPRING = { type: "spring" as const, stiffness: 400, damping: 32 };
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// ─── STAGGERED LIST ANIMATIONS ───
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.05 }
+    transition: { staggerChildren: 0.04 }
   }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 0, y: 12 },
   show: { 
     opacity: 1, 
     y: 0, 
@@ -37,7 +35,6 @@ const itemVariants: Variants = {
   }
 };
 
-// ─── IMAGE URL RESOLVER ───
 const resolveImageUrl = (url: string) => {
   if (!url) return "";
   if (url.startsWith("http")) return url;
@@ -54,7 +51,6 @@ const ChevronIcon = () => (
   </svg>
 );
 
-// ─── SINGLE RESULT ROW (owns its own quantity so a stepper can live per-row) ───
 const ResultRow = memo(({ item, onOpen, onAdd }: { item: ProductDto, onOpen: (item: ProductDto) => void, onAdd: (item: ProductDto, qty: number) => void }) => {
   const [qty, setQty] = useState(1);
   const [justAdded, setJustAdded] = useState(false);
@@ -146,11 +142,9 @@ export const Search = ({ inventory, onSelectProduct, onAddToCart, isOpen, setIsO
     inventory.filter(i => !category || i.category === category).map(i => i.brand)
   ));
 
-  // ─── SMART SEARCH & FILTER ALGORITHM ───
   const results = useMemo(() => {
     let filtered = inventory;
 
-    // 1. Text Search
     if (query.trim()) {
       const lowerQuery = query.toLowerCase().trim();
       const searchTerms = lowerQuery.split(/\s+/).filter(Boolean);
@@ -183,11 +177,9 @@ export const Search = ({ inventory, onSelectProduct, onAddToCart, isOpen, setIsO
       filtered = scoredItems.map(data => data.item);
     }
 
-    // 2. Dropdown Filters
     if (category) filtered = filtered.filter(i => i.category === category);
     if (activeBrand) filtered = filtered.filter(i => i.brand === activeBrand);
     
-    // 3. Price Filters
     const min = parseFloat(minPrice);
     if (!isNaN(min)) filtered = filtered.filter(i => i.price >= min);
     
@@ -229,33 +221,32 @@ export const Search = ({ inventory, onSelectProduct, onAddToCart, isOpen, setIsO
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: EASE }}
+              transition={{ duration: 0.3, ease: EASE }}
               onClick={() => setIsOpen(false)}
             />
             
             <motion.div 
               className={styles.liquidPalette}
-              style={{ transformOrigin: "top center" }}
-              initial={{ opacity: 0, scale: 0.95, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={SPRING}
             >
               <div className={styles.paletteHeader}>
                 <svg className={styles.activeSearchIcon} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
+                {/* autoFocus removed so mobile keyboard only opens when clicked */}
                 <input 
-                  autoFocus
                   className={styles.paletteInput} 
                   placeholder={category ? `Search in ${category}...` : "What are you looking for?"}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
                 
-                <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
+                <button className={styles.closeButton} onClick={() => setIsOpen(false)} aria-label="Close search">
                   <span className={styles.escText}>ESC</span>
-                  <svg className={styles.closeIcon} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className={styles.closeIcon} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
                 </button>
