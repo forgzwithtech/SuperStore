@@ -24,8 +24,8 @@ RUN for dir in superstore.*; do \
 # Restore dependencies
 RUN dotnet restore "superstore.sln"
 
-# Publish the main API
-RUN dotnet publish "Superstore.Api" -c Release -o /app/publish /p:UseAppHost=false
+# Publish the exact project file explicitly
+RUN dotnet publish "Superstore.Api/Superstore.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Stage 2: Runtime Image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
