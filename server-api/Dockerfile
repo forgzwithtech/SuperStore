@@ -2,20 +2,30 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy the entire server source tree
+# Copy all source files
 COPY . .
 
-# Ensure directory names match the exact PascalCase expected by superstore.sln on case-sensitive Linux
-RUN [ -d "superstore.Api" ] && cp -r superstore.Api Superstore.Api || true
-RUN [ -d "superstore.Application" ] && cp -r superstore.Application Superstore.Application || true
-RUN [ -d "superstore.Core" ] && cp -r superstore.Core Superstore.Core || true
-RUN [ -d "superstore.Infrastructure" ] && cp -r superstore.Infrastructure Superstore.Infrastructure || true
+# Fix case discrepancies between Windows git and Linux solution definitions
+RUN for dir in superstore.*; do \
+      target="Superstore.${dir#superstore.}"; \
+      if [ -d "$dir" ] && [ "$dir" != "$target" ]; then \
+        cp -r "$dir" "$target"; \
+      fi; \
+    done && \
+    for proj in Superstore.*/*.csproj; do \
+      dir=$(dirname "$proj"); \
+      base=$(basename "$proj"); \
+      target="$dir/Superstore.${base#superstore.}"; \
+      if [ -f "$proj" ] && [ "$proj" != "$target" ]; then \
+        cp "$proj" "$target"; \
+      fi; \
+    done
 
 # Restore dependencies
 RUN dotnet restore "superstore.sln"
 
-# Publish the API project to release folder
-RUN dotnet publish "Superstore.Api/superstore.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+# Publish the main API
+RUN dotnet publish "Superstore.Api" -c Release -o /app/publish /p:UseAppHost=false
 
 # Stage 2: Runtime Image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
@@ -27,4 +37,4 @@ ENV ASPNETCORE_ENVIRONMENT=Production
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "superstore.Api.dll"] 
+ENTRYPOINT ["dotnet", "superstore.Api.dll"]
